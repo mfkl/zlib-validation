@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using ICSharpCode.SharpZipLib.GZip;
 using System.IO.Compression;
+using Elskom.Generic.Libs;
 
 public static class Program
 {
@@ -155,13 +156,17 @@ public static class Program
 				"SharpCompress",
 				s => new SharpCompress.Compressors.Deflate.GZipStream(s, SharpCompress.Compressors.CompressionMode.Compress),
 				s => new SharpCompress.Compressors.Deflate.GZipStream(s, SharpCompress.Compressors.CompressionMode.Decompress)
+			),
+			(
+				"zlib.managed",
+				s => new ZOutputStream(s, ZlibCompression.ZDEFAULTCOMPRESSION),
+				s => new ZInputStream(s)
 			)
 		};
 
 
-		var source =
-			Enumerable.Range(0, 32).Select(i => (byte)i).ToArray();
-		//File.ReadAllBytes(@"f:\hello.txt.gz");
+		var source = Enumerable.Range(0, 32).Select(i => (byte)i).ToArray();
+
 		foreach (var codec in codecs)
 		{
 			Console.WriteLine(codec.name);
