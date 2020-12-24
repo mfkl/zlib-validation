@@ -137,47 +137,30 @@ public static class Program
 	{
 		var codecs = new (string name, Func<Stream, Stream> compress, Func<Stream, Stream> decompress)[]
 		{
-			(
-				"System.IO.Compression",
-				s => new System.IO.Compression.GZipStream(s, System.IO.Compression.CompressionLevel.Fastest),
-				s => new System.IO.Compression.GZipStream(s, CompressionMode.Decompress)
-			),
-			(
-				"ICSharpCode.SharpZipLib",
-				s =>
-				{
-					var result = new ICSharpCode.SharpZipLib.GZip.GZipOutputStream(s);
-					result.SetLevel(1);
-					return result;
-				},
-				s => new ICSharpCode.SharpZipLib.GZip.GZipInputStream(s)
-			),
-			(
-				"SharpCompress",
-				s => new SharpCompress.Compressors.Deflate.GZipStream(s, SharpCompress.Compressors.CompressionMode.Compress),
-				s => new SharpCompress.Compressors.Deflate.GZipStream(s, SharpCompress.Compressors.CompressionMode.Decompress)
-			),
-			(
-				"zlib.managed",
-				s => new ZOutputStream(s, ZlibCompression.ZDEFAULTCOMPRESSION),
-				s => new ZInputStream(s)
-			)
-		};
+            //(
+            //    "System.IO.Compression",
+            //    s => new System.IO.Compression.GZipStream(s, System.IO.Compression.CompressionLevel.Fastest),
+            //    s => new System.IO.Compression.GZipStream(s, CompressionMode.Decompress)
+            //),
 
+            (
+                "zlib.managed",
+                s => new ZOutputStream(s, ZlibCompression.ZBESTSPEED),
+                s => new ZInputStream(s)
+            )
+        };
 
 		var source = Enumerable.Range(0, 32).Select(i => (byte)i).ToArray();
 
 		foreach (var codec in codecs)
 		{
-			Console.WriteLine(codec.name);
-			Console.WriteLine("Original");
-			RoundTrip(source, codec, Unchanged);
-			Console.WriteLine("Truncate");
+            Console.WriteLine(codec.name);
+
+            Console.WriteLine("Truncate");
 			RoundTrip(source, codec, Truncate);
-			Console.WriteLine("Increment");
-			RoundTrip(source, codec, Increment);
-			Console.WriteLine("");
-		}
+
+            Console.WriteLine("");
+        }
 
 		Console.ReadKey();
 	}
