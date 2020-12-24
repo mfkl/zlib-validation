@@ -91,7 +91,7 @@ namespace Elskom.Generic.Libs
 
                         if (z.AvailIn == 0)
                         {
-                            return r;
+                            return r; // this is hit
                         }
 
                         r = f == ZlibFlushStrategy.ZFINISH ? ZlibCompressionState.ZBUFERROR : ZlibCompressionState.ZOK;
@@ -120,7 +120,7 @@ namespace Elskom.Generic.Libs
 
                         if (z.AvailIn == 0)
                         {
-                            return r;
+                            return r; // THIS is HIT
                         }
 
                         r = f == ZlibFlushStrategy.ZFINISH ? ZlibCompressionState.ZBUFERROR : ZlibCompressionState.ZOK;
@@ -225,7 +225,7 @@ namespace Elskom.Generic.Libs
 
                         if (r != ZlibCompressionState.ZSTREAMEND)
                         {
-                            return r;
+                            return r; // This is HIT
                         }
 
                         r = f == ZlibFlushStrategy.ZFINISH ? ZlibCompressionState.ZBUFERROR : ZlibCompressionState.ZOK;
