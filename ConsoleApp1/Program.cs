@@ -137,18 +137,33 @@ public static class Program
 	{
 		var codecs = new (string name, Func<Stream, Stream> compress, Func<Stream, Stream> decompress)[]
 		{
-            //(
-            //    "System.IO.Compression",
-            //    s => new System.IO.Compression.GZipStream(s, System.IO.Compression.CompressionLevel.Fastest),
-            //    s => new System.IO.Compression.GZipStream(s, CompressionMode.Decompress)
-            //),
-
+            (
+                "System.IO.Compression",
+                s => new System.IO.Compression.GZipStream(s, System.IO.Compression.CompressionLevel.Fastest),
+                s => new System.IO.Compression.GZipStream(s, CompressionMode.Decompress)
+            ),
             (
                 "zlib.managed",
                 s => new ZOutputStream(s, ZlibCompression.ZBESTSPEED),
                 s => new ZInputStream(s)
-            )
-        };
+            ),
+			(
+				"ICSharpCode.SharpZipLib",
+				s =>
+				{
+					var result = new ICSharpCode.SharpZipLib.GZip.GZipOutputStream(s);
+					result.SetLevel(1);
+					return result;
+				},
+				s => new ICSharpCode.SharpZipLib.GZip.GZipInputStream(s)
+			),
+			(
+				"SharpCompress",
+				s => new SharpCompress.Compressors.Deflate.GZipStream(s, SharpCompress.Compressors.CompressionMode.Compress),
+				s => new SharpCompress.Compressors.Deflate.GZipStream(s, SharpCompress.Compressors.CompressionMode.Decompress)
+			)
+
+		};
 
 		var source = Enumerable.Range(0, 32).Select(i => (byte)i).ToArray();
 
