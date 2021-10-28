@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "zlib.managed", "zlib.manage
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OriginalSOTestCase", "OriginalSOTestCase\OriginalSOTestCase.csproj", "{4B42ACA9-C72F-412E-8C8C-CA326F34389B}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ZLibWrapper", "ZLibWrapper\ZLibWrapper.csproj", "{9DC62A8C-287E-4BD7-8A80-C1E34E200611}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{4B42ACA9-C72F-412E-8C8C-CA326F34389B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4B42ACA9-C72F-412E-8C8C-CA326F34389B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4B42ACA9-C72F-412E-8C8C-CA326F34389B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9DC62A8C-287E-4BD7-8A80-C1E34E200611}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9DC62A8C-287E-4BD7-8A80-C1E34E200611}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9DC62A8C-287E-4BD7-8A80-C1E34E200611}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9DC62A8C-287E-4BD7-8A80-C1E34E200611}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

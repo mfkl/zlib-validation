@@ -6,6 +6,7 @@ using System.Text;
 using ICSharpCode.SharpZipLib.GZip;
 using System.IO.Compression;
 using Elskom.Generic.Libs;
+using Joveler.ZLibWrapper;
 
 public static class Program
 {
@@ -135,6 +136,9 @@ public static class Program
 
 	public static void Main()
 	{
+		string dllPath = Path.Combine(@$"{Directory.GetCurrentDirectory()}\Precompiled\x64", "zlibwapi.dll");
+		ZLibInit.GlobalInit(dllPath);
+
 		var codecs = new (string name, Func<Stream, Stream> compress, Func<Stream, Stream> decompress)[]
 		{
             (
@@ -161,8 +165,12 @@ public static class Program
 				"SharpCompress",
 				s => new SharpCompress.Compressors.Deflate.GZipStream(s, SharpCompress.Compressors.CompressionMode.Compress),
 				s => new SharpCompress.Compressors.Deflate.GZipStream(s, SharpCompress.Compressors.CompressionMode.Decompress)
+			),
+			(
+				"ZLibWrapper ",
+				s => new Joveler.ZLibWrapper.DeflateStream(s, Joveler.ZLibWrapper.ZLibMode.Compress),
+				s => new Joveler.ZLibWrapper.DeflateStream(s, Joveler.ZLibWrapper.ZLibMode.Decompress)
 			)
-
 		};
 
 		var source = Enumerable.Range(0, 32).Select(i => (byte)i).ToArray();
